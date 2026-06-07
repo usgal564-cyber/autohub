@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AUTOHUB — Тээврийн Хэрэгслийн Зар</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--sky:14 165 233;--blue:37 99 235;--indigo:79 70 229;
+--c-sky:#186f97;--c-blue:#2563eb;--c-indigo:#4f46e5;
+--c-sky-lt:#e0f2fe;--c-blue-lt:#dbeafe;
+--bg:#f0f6ff;--surface:#fff;--border:#d1e3ff;
+--text:#0f1c35;--muted:#64748b;--faint:#94a3b8;
+--r:14px;--r-lg:20px;--r-xl:28px;
+--shadow:0 2px 12px rgba(14,165,233,.08);
+--shadow-md:0 8px 32px rgba(37,99,235,.12);
+--shadow-lg:0 20px 60px rgba(37,99,235,.18);
+}
+body{font-family:'Geist',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* ─── TOPBAR ─── */
+#topbar{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);box-shadow:var(--shadow)}
+.tb-inner{max-width:1320px;margin:0 auto;padding:0 24px;height:68px;display:flex;align-items:center;gap:20px}
+.logo{font-weight:900;font-size:20px;letter-spacing:-1px;color:var(--c-blue);display:flex;align-items:center;gap:9px;text-decoration:none;flex-shrink:0}
+.logo-mark{width:34px;height:34px;background:linear-gradient(135deg,var(--c-blue),var(--c-sky));border-radius:9px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;box-shadow:0 3px 10px rgba(37,99,235,.35)}
+.tb-search{flex:1;max-width:440px;position:relative}
+.tb-search input{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:9px 14px 9px 40px;font-size:13.5px;font-family:inherit;color:var(--text);outline:none;transition:.2s}
+.tb-search input:focus{border-color:var(--c-sky);background:#fff;box-shadow:0 0 0 3px rgba(14,165,233,.12)}
+.tb-search i{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--faint);font-size:13px}
+.tb-right{display:flex;align-items:center;gap:10px;margin-left:auto}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:10px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;border:none;transition:.18s;text-decoration:none}
+.btn-ghost{background:transparent;color:var(--muted);border:1.5px solid var(--border)}
+.btn-ghost:hover{background:var(--bg);color:var(--text);border-color:var(--c-sky)}
+.btn-primary{background:linear-gradient(135deg,var(--c-blue),var(--c-sky));color:#fff;box-shadow:0 3px 12px rgba(37,99,235,.3)}
+.btn-primary:hover{filter:brightness(1.07);transform:translateY(-1px);box-shadow:0 6px 18px rgba(37,99,235,.38)}
+.btn-outline{background:#fff;color:var(--c-blue);border:1.5px solid var(--c-blue)}
+.btn-outline:hover{background:var(--c-blue-lt)}
+.avatar-btn{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--c-blue),var(--c-sky));color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;transition:.2s;flex-shrink:0}
+.avatar-btn:hover{transform:scale(1.07)}
+
+/* ─── PAGES ─── */
+.page{display:none;min-height:calc(100vh - 68px)}
+.page.active{display:block}
+
+/* ─── HERO ─── */
+.hero{background:linear-gradient(135deg,#1e3a8a 0%,var(--c-blue) 45%,var(--c-sky) 100%);padding:64px 24px 72px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40%;right:-5%;width:600px;height:600px;background:radial-gradient(circle,rgba(255,255,255,.1) 0%,transparent 65%);border-radius:50%}
+.hero::after{content:'';position:absolute;bottom:-30%;left:20%;width:400px;height:400px;background:radial-gradient(circle,rgba(14,165,233,.2) 0%,transparent 65%);border-radius:50%}
+.hero-inner{max-width:1320px;margin:0 auto;position:relative;z-index:1}
+.hero-pill{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.15);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:12px;font-weight:600;padding:5px 13px;border-radius:100px;margin-bottom:22px;letter-spacing:.4px}
+.hero-pill .dot{width:7px;height:7px;background:#4ade80;border-radius:50%;animation:pp 1.5s ease-out infinite}
+@keyframes pp{0%,100%{opacity:.5;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+.hero h1{font-size:clamp(28px,4.5vw,52px);font-weight:900;color:#fff;letter-spacing:-2px;line-height:1.08;margin-bottom:16px}
+.hero h1 span{color:rgba(255,255,255,.7)}
+.hero p{color:rgba(255,255,255,.78);font-size:15.5px;max-width:500px;line-height:1.6;margin-bottom:30px}
+.hero-stats{display:flex;gap:36px}
+.stat .n{font-size:26px;font-weight:800;color:#fff;line-height:1}
+.stat .l{font-size:11.5px;color:rgba(255,255,255,.65);margin-top:3px;font-weight:500}
+
+/* ─── MAIN LAYOUT ─── */
+.main-wrap{max-width:1320px;margin:0 auto;padding:36px 24px}
+
+/* ─── CATEGORY TABS ─── */
+.cat-scroll{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:28px;scrollbar-width:none}
+.cat-scroll::-webkit-scrollbar{display:none}
+.cat-tab{display:flex;align-items:center;gap:8px;padding:10px 20px;border-radius:12px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;border:1.5px solid var(--border);background:#fff;color:var(--muted);white-space:nowrap;transition:.18s;flex-shrink:0}
+.cat-tab:hover{border-color:var(--c-sky);color:var(--c-blue);background:var(--c-sky-lt)}
+.cat-tab.active{background:linear-gradient(135deg,var(--c-blue),var(--c-sky));border-color:transparent;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,.28)}
+
+/* ─── FILTERS ROW ─── */
+.filters-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px;align-items:flex-end}
+.filter-group{display:flex;flex-direction:column;gap:5px}
+.filter-label{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.filter-sel{background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:8px 12px;font-size:13px;font-family:inherit;color:var(--text);outline:none;cursor:pointer;min-width:130px;transition:.18s}
+.filter-sel:focus{border-color:var(--c-sky)}
+.price-range{display:flex;flex-direction:column;gap:5px}
+.price-inputs{display:flex;gap:6px;align-items:center}
+.price-inputs input{width:110px;background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:8px 10px;font-size:12.5px;font-family:inherit;color:var(--text);outline:none;transition:.18s}
+.price-inputs input:focus{border-color:var(--c-sky)}
+.price-inputs span{color:var(--faint);font-size:13px}
+.btn-filter{padding:8px 16px;height:38px;background:var(--c-blue-lt);color:var(--c-blue);border:1.5px solid var(--c-blue);border-radius:10px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;transition:.18s}
+.btn-filter:hover{background:var(--c-blue);color:#fff}
+.btn-reset-filter{padding:8px 14px;height:38px;background:transparent;color:var(--faint);border:1.5px solid var(--border);border-radius:10px;font-size:12px;font-family:inherit;cursor:pointer;transition:.18s}
+.btn-reset-filter:hover{border-color:var(--muted);color:var(--muted)}
+
+/* ─── GRID ─── */
+.grid{display:grid;grid-template-columns:repeat(1,1fr);gap:18px}
+@media(min-width:600px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:960px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:1200px){.grid{grid-template-columns:repeat(4,1fr)}}
+
+/* ─── CARD ─── */
+.card{background:#fff;border-radius:var(--r-lg);overflow:hidden;border:1.5px solid var(--border);box-shadow:var(--shadow);transition:.22s;cursor:pointer;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:var(--c-sky)}
+.card-img{position:relative;aspect-ratio:16/10;overflow:hidden;background:#e8f4ff}
+.card-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.card:hover .card-img img{transform:scale(1.06)}
+.card-cat{position:absolute;top:10px;left:10px;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);color:var(--c-blue);font-size:10.5px;font-weight:700;padding:4px 9px;border-radius:7px;text-transform:uppercase;letter-spacing:.5px;border:1px solid var(--c-blue-lt)}
+.card-cond{position:absolute;top:10px;right:10px;font-size:10.5px;font-weight:700;padding:4px 9px;border-radius:7px}
+.cn{background:#dcfce7;color:#00ff62}.cg{background:#dbeafe;color:#000a2a}.cm{background:#fef9c3;color:#713f12}
+.card-body{padding:15px 16px;flex:1;display:flex;flex-direction:column}
+.card-title{font-size:14.5px;font-weight:700;color:var(--text);margin-bottom:9px;line-height:1.3}
+.card-chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:13px}
+.chip{display:flex;align-items:center;gap:4px;font-size:11px;font-weight:500;color:var(--muted);background:var(--bg);border:1px solid var(--border);padding:3px 8px;border-radius:6px}
+.chip i{color:var(--c-sky);font-size:10px}
+.card-foot{display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid var(--bg);margin-top:auto}
+.card-price{font-size:16px;font-weight:800;color:var(--c-blue);letter-spacing:-.5px}
+.btn-sm{background:var(--c-sky-lt);color:var(--c-blue);border:1px solid var(--c-blue-lt);border-radius:8px;padding:7px 13px;font-size:11.5px;font-weight:700;font-family:inherit;cursor:pointer;transition:.18s}
+.btn-sm:hover{background:var(--c-blue);color:#fff;border-color:transparent}
+
+/* ─── AI BANNER ─── */
+.ai-banner{display:none;background:linear-gradient(135deg,#e0f2fe,#dbeafe);border:1.5px solid var(--c-sky);border-radius:14px;padding:12px 18px;margin-bottom:20px;align-items:center;gap:12px}
+.ai-banner.show{display:flex}
+.ai-banner i{color:var(--c-blue);font-size:16px}
+.ai-banner-txt{flex:1;font-size:13px;color:var(--muted);font-weight:500}
+.ai-banner-txt strong{color:var(--c-blue)}
+.btn-clr{background:none;border:1px solid var(--c-sky);color:var(--c-blue);border-radius:8px;padding:5px 11px;font-size:11.5px;font-weight:600;font-family:inherit;cursor:pointer;transition:.18s}
+.btn-clr:hover{background:var(--c-blue-lt)}
+
+/* ─── NO RESULTS ─── */
+.no-res{display:none;text-align:center;padding:72px 24px;background:#fff;border-radius:var(--r-xl);border:2px dashed var(--border)}
+.no-res i{font-size:44px;color:var(--c-blue-lt);margin-bottom:14px;display:block}
+.no-res h3{font-size:17px;font-weight:700;color:var(--muted);margin-bottom:6px}
+.no-res p{font-size:13.5px;color:var(--faint)}
+
+/* ─── SPINNER ─── */
+.spin-wrap{display:flex;justify-content:center;align-items:center;padding:80px;grid-column:1/-1}
+.spinner{width:38px;height:38px;border:3px solid var(--c-blue-lt);border-top-color:var(--c-blue);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ─── MODAL ─── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,28,53,.45);backdrop-filter:blur(6px);z-index:500;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:#fff;border-radius:var(--r-xl);width:100%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg);animation:mUp .22s ease-out}
+@keyframes mUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.modal-head{padding:22px 24px 0;display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.modal-head h2{font-size:19px;font-weight:800;letter-spacing:-.5px}
+.modal-close{background:var(--bg);border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:14px;transition:.18s}
+.modal-close:hover{background:var(--c-blue-lt);color:var(--c-blue)}
+.modal-body{padding:0 24px 24px}
+.form-row{margin-bottom:16px}
+.form-row label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px}
+.form-row input,.form-row select,.form-row textarea{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:11px;padding:10px 13px;font-size:13.5px;font-family:inherit;color:var(--text);outline:none;transition:.18s}
+.form-row input:focus,.form-row select:focus,.form-row textarea:focus{border-color:var(--c-sky);background:#fff;box-shadow:0 0 0 3px rgba(14,165,233,.1)}
+.form-row textarea{resize:vertical;min-height:80px}
+.form-row input::placeholder,.form-row textarea::placeholder{color:var(--faint)}
+.form-err{color:#ef4444;font-size:12px;margin-top:5px}
+.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.modal-tabs{display:flex;gap:0;margin-bottom:22px}
+.m-tab{flex:1;padding:10px;background:var(--bg);border:1.5px solid var(--border);font-size:13.5px;font-weight:600;font-family:inherit;cursor:pointer;color:var(--muted);transition:.18s}
+.m-tab:first-child{border-radius:10px 0 0 10px}
+.m-tab:last-child{border-radius:0 10px 10px 0;border-left:none}
+.m-tab.active{background:linear-gradient(135deg,var(--c-blue),var(--c-sky));color:#fff;border-color:transparent}
+.divider{text-align:center;color:var(--faint);font-size:12px;margin:14px 0;position:relative}
+.divider::before,.divider::after{content:'';position:absolute;top:50%;width:42%;height:1px;background:var(--border)}
+.divider::before{left:0}.divider::after{right:0}
+
+/* ─── DETAIL PAGE ─── */
+#page-detail .main-wrap{max-width:1000px}
+.detail-back{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;margin-bottom:22px;background:none;border:none;font-family:inherit;transition:.18s;padding:0}
+.detail-back:hover{color:var(--c-blue)}
+.detail-grid{display:grid;grid-template-columns:1fr;gap:24px}
+@media(min-width:768px){.detail-grid{grid-template-columns:1.2fr 1fr}}
+.detail-imgs{border-radius:var(--r-xl);overflow:hidden;aspect-ratio:16/10;background:#e8f4ff}
+.detail-imgs img{width:100%;height:100%;object-fit:cover}
+.detail-info{display:flex;flex-direction:column;gap:16px}
+.detail-title{font-size:22px;font-weight:800;letter-spacing:-.5px;color:var(--text)}
+.detail-price{font-size:28px;font-weight:900;color:var(--c-blue);letter-spacing:-1px}
+.detail-chips{display:flex;flex-wrap:wrap;gap:7px}
+.detail-chip{display:flex;align-items:center;gap:5px;font-size:12.5px;font-weight:600;color:var(--muted);background:var(--bg);border:1.5px solid var(--border);padding:6px 12px;border-radius:10px}
+.detail-chip i{color:var(--c-sky)}
+.detail-desc{background:var(--bg);border-radius:var(--r);padding:16px;font-size:13.5px;color:var(--muted);line-height:1.65;border:1px solid var(--border)}
+.seller-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--r-lg);padding:20px;box-shadow:var(--shadow)}
+.seller-card h3{font-size:13px;font-weight:700;color:var(--faint);text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px}
+.seller-profile{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.seller-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--c-blue),var(--c-sky));display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:700;flex-shrink:0}
+.seller-name{font-size:16px;font-weight:700;color:var(--text)}
+.seller-since{font-size:12px;color:var(--faint)}
+.seller-info-row{display:flex;flex-direction:column;gap:10px}
+.seller-info-item{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
+.seller-info-item i{width:20px;color:var(--c-sky);font-size:14px;flex-shrink:0}
+.seller-info-item a{color:var(--c-blue);text-decoration:none}
+.seller-info-item a:hover{text-decoration:underline}
+.seller-bio{background:var(--bg);border-radius:10px;padding:12px;font-size:12.5px;color:var(--muted);line-height:1.6;border:1px solid var(--border);margin-top:12px}
+.seller-bio span{font-size:11px;font-weight:700;color:var(--faint);display:block;margin-bottom:4px;text-transform:uppercase}
+.contact-btns{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+
+/* ─── PROFILE PAGE ─── */
+#page-profile .main-wrap{max-width:920px}
+.profile-header{display:flex;align-items:flex-start;gap:24px;background:#fff;border-radius:var(--r-xl);border:1.5px solid var(--border);padding:28px;margin-bottom:24px;box-shadow:var(--shadow)}
+.profile-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--c-blue),var(--c-sky));display:flex;align-items:center;justify-content:center;color:#fff;font-size:30px;font-weight:700;flex-shrink:0}
+.profile-name{font-size:22px;font-weight:800;letter-spacing:-.5px}
+.profile-email{font-size:13px;color:var(--faint);margin-top:3px}
+.profile-stats{display:flex;gap:22px;margin-top:14px}
+.ps{text-align:center}
+.ps .pn{font-size:20px;font-weight:800;color:var(--c-blue)}
+.ps .pl{font-size:11px;color:var(--faint);font-weight:500}
+.profile-tabs{display:flex;gap:3px;background:var(--bg);padding:4px;border-radius:12px;margin-bottom:22px;width:fit-content;border:1px solid var(--border)}
+.pt{padding:8px 18px;border-radius:9px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;border:none;background:transparent;color:var(--muted);transition:.18s}
+.pt.active{background:#fff;color:var(--c-blue);box-shadow:0 2px 8px rgba(0, 80, 254, 0.12)}
+.profile-section{display:none}
+.profile-section.active{display:block}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:600px){.info-grid{grid-template-columns:1fr}}
+
+/* ─── POST MODAL extra ─── */
+.step-indicator{display:flex;gap:6px;margin-bottom:20px}
+.step{flex:1;height:4px;border-radius:2px;background:var(--border);transition:.3s}
+.step.done{background:linear-gradient(90deg,var(--c-blue),var(--c-sky))}
+
+/* ─── AI CHAT FAB ─── */
+.fab-wrap{position:fixed;bottom:26px;right:26px;z-index:300}
+.fab-btn{display:flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--c-blue),var(--c-sky));color:#fff;border:none;border-radius:100px;padding:13px 22px;font-size:13.5px;font-weight:700;font-family:inherit;cursor:pointer;box-shadow:0 8px 28px rgba(37,99,235,.35);transition:.22s;position:relative}
+.fab-btn:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(37,99,235,.45)}
+.fab-ping{position:absolute;top:-3px;right:-3px;width:13px;height:13px}
+.fab-ping::after,.fab-ping::before{content:'';position:absolute;border-radius:50%;width:100%;height:100%}
+.fab-ping::after{background:#22c55e}
+.fab-ping::before{background:rgba(34,197,94,.4);animation:pp2 1.5s ease-out infinite}
+@keyframes pp2{to{transform:scale(2.2);opacity:0}}
+.chat-win{display:none;position:absolute;bottom:66px;right:0;width:350px;height:490px;background:#fff;border-radius:22px;box-shadow:var(--shadow-lg);border:1.5px solid var(--border);flex-direction:column;overflow:hidden;animation:cu .22s ease-out}
+.chat-win.open{display:flex}
+@keyframes cu{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+.chat-hd{background:linear-gradient(135deg,var(--c-blue),var(--c-sky));padding:16px 18px;display:flex;justify-content:space-between;align-items:center}
+.chat-hd-l{display:flex;align-items:center;gap:10px}
+.chat-av{width:34px;height:34px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px}
+.chat-nm{font-size:13.5px;font-weight:700;color:#fff}
+.chat-st{font-size:11px;color:rgba(255,255,255,.75);display:flex;align-items:center;gap:4px;margin-top:1px}
+.chat-dot{width:6px;height:6px;background:#4ade80;border-radius:50%}
+.chat-x{background:rgba(255,255,255,.15);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;transition:.18s}
+.chat-x:hover{background:rgba(255,255,255,.28)}
+.chat-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:9px;background:var(--bg)}
+.chat-msgs::-webkit-scrollbar{width:3px}
+.chat-msgs::-webkit-scrollbar-thumb{background:var(--c-blue-lt);border-radius:10px}
+.msg-w{display:flex;flex-direction:column}
+.msg-w.u{align-items:flex-end}
+.msg{max-width:88%;padding:9px 13px;border-radius:14px;font-size:12.5px;line-height:1.55}
+.msg.bot{background:#fff;color:var(--text);border:1px solid var(--border);border-radius:4px 14px 14px 14px;box-shadow:0 1px 5px rgba(0,0,0,.06)}
+.msg.usr{background:linear-gradient(135deg,var(--c-blue),var(--c-sky));color:#fff;border-radius:14px 4px 14px 14px}
+.typing{background:#fff;border:1px solid var(--border);border-radius:4px 14px 14px 14px;padding:11px 14px;align-self:flex-start;display:flex;gap:4px;align-items:center}
+.td{width:6px;height:6px;background:var(--c-sky);border-radius:50%;animation:tb 1.1s infinite}
+.td:nth-child(2){animation-delay:.18s}.td:nth-child(3){animation-delay:.36s}
+@keyframes tb{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-6px);opacity:1}}
+.chat-cnt{font-size:11px;font-weight:600;color:var(--c-blue);background:var(--c-blue-lt);border:1px solid var(--c-blue-lt);border-radius:7px;padding:5px 9px;display:inline-flex;align-items:center;gap:4px;margin-top:5px}
+.chat-frm{padding:11px 13px;border-top:1px solid var(--border);background:#fff;display:flex;gap:7px}
+.chat-frm input{flex:1;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:9px 12px;font-size:12.5px;font-family:inherit;color:var(--text);outline:none;transition:.18s}
+.chat-frm input:focus{border-color:var(--c-sky);background:#fff}
+.chat-frm input::placeholder{color:var(--faint)}
+.chat-send{background:linear-gradient(135deg,var(--c-blue),var(--c-sky));color:#fff;border:none;border-radius:10px;width:40px;height:40px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:.18s;flex-shrink:0}
+.chat-send:hover{filter:brightness(1.08)}
+.chat-send:disabled{opacity:.5;cursor:not-allowed}
+.mobile-search-bar{display:none;position:relative;margin-bottom:20px}
+@media(max-width:767px){.mobile-search-bar{display:block}.tb-search{display:none}}
+.mobile-search-bar input{width:100%;background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:11px 14px 11px 40px;font-size:13.5px;font-family:inherit;outline:none;transition:.18s;color:var(--text)}
+.mobile-search-bar input:focus{border-color:var(--c-sky)}
+.mobile-search-bar i{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--faint)}
+.ai-match{border-color:var(--c-sky)!important;box-shadow:0 0 0 2px rgba(14,165,233,.25),var(--shadow)!important}
+</style>
+</head>
+<body>
+
+<!-- ─── TOPBAR ─── -->
+<div id="topbar">
+  <div class="tb-inner">
+    <a class="logo" onclick="showPage('home')">
+      <div class="logo-mark"><i class="fa-solid fa-car-side"></i></div>
+      AUTOHUB
+    </a>
+    <div class="tb-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input id="mainSearch" type="text" placeholder="Машин, брэнд, загвар хайх..." oninput="handleSearch()">
+    </div>
+    <div class="tb-right">
+      <button class="btn btn-ghost" id="loginNavBtn" onclick="openAuth('login')"><i class="fa-solid fa-right-to-bracket"></i> Нэвтрэх</button>
+      <button class="btn btn-primary" id="postNavBtn" onclick="openPostModal()"><i class="fa-solid fa-plus"></i> Зар оруулах</button>
+      <button class="avatar-btn" id="avatarBtn" style="display:none" onclick="showPage('profile')" title="Профайл"></button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── HOME PAGE ─── -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-pill"><span class="dot"></span> AI хайлт идэвхтэй</div>
+      <h1>Таны дараагийн <span>унаа</span><br>энд байна</h1>
+      <p>Монголын хамгийн том тээврийн хэрэгслийн зарын платформ. AI туслахаар хялбар хайж олоорой.</p>
+      <div class="hero-stats">
+        <div class="stat"><div class="n" id="totalCount">0</div><div class="l">Нийт зар</div></div>
+        <div class="stat"><div class="n">5</div><div class="l">Ангилал</div></div>
+        <div class="stat"><div class="n">AI</div><div class="l">Ухаалаг хайлт</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-wrap">
+    <!-- Category tabs -->
+    <div class="cat-scroll" id="catTabs"></div>
+
+    <!-- Filters -->
+    <div class="filters-row" id="filtersRow">
+      <div class="filter-group">
+        <div class="filter-label">Брэнд</div>
+        <select class="filter-sel" id="brandSel" onchange="onBrandChange()"><option value="">Бүх брэнд</option></select>
+      </div>
+      <div class="filter-group">
+        <div class="filter-label">Загвар</div>
+        <select class="filter-sel" id="modelSel"><option value="">Бүх загвар</option></select>
+      </div>
+      <div class="price-range">
+        <div class="filter-label">Үнэ (₮)</div>
+        <div class="price-inputs">
+          <input type="number" id="minPrice" placeholder="Доод" step="1000000">
+          <span>—</span>
+          <input type="number" id="maxPrice" placeholder="Дээд" step="1000000">
+        </div>
+      </div>
+      <div class="filter-group">
+        <div class="filter-label">Он</div>
+        <div class="price-inputs">
+          <input type="number" id="minYear" placeholder="2010" style="width:80px">
+          <span>—</span>
+          <input type="number" id="maxYear" placeholder="2024" style="width:80px">
+        </div>
+      </div>
+      <button class="btn-filter" onclick="applyFilters()"><i class="fa-solid fa-sliders"></i> Шүүх</button>
+      <button class="btn-reset-filter" onclick="resetAll()">Цэвэрлэх</button>
+    </div>
+
+    <!-- Mobile search -->
+    <div class="mobile-search-bar">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="mobileSearch" placeholder="Хайх..." oninput="handleSearch()">
+    </div>
+
+    <!-- AI banner -->
+    <div class="ai-banner" id="aiBanner">
+      <i class="fa-solid fa-wand-magic-sparkles"></i>
+      <div class="ai-banner-txt"><strong id="aiBannerTxt">AI хайлтын үр дүн</strong></div>
+      <button class="btn-clr" onclick="clearAi()">Цэвэрлэх</button>
+    </div>
+
+    <!-- Grid -->
+    <div class="grid" id="mainGrid"></div>
+    <div class="no-res" id="noRes">
+      <i class="fa-solid fa-car-burst"></i>
+      <h3>Зар олдсонгүй</h3>
+      <p>Өөр утгаар хайж үзнэ үү</p>
+    </div>
+  </div>
+</div>
+
+<!-- ─── DETAIL PAGE ─── -->
+<div id="page-detail" class="page">
+  <div class="main-wrap">
+    <button class="detail-back" onclick="showPage('home')"><i class="fa-solid fa-arrow-left"></i> Буцах</button>
+    <div class="detail-grid" id="detailContent"></div>
+  </div>
+</div>
+
+<!-- ─── PROFILE PAGE ─── -->
+<div id="page-profile" class="page">
+  <div class="main-wrap">
+    <div class="profile-header" id="profileHeader"></div>
+    <div class="profile-tabs">
+      <button class="pt active" onclick="switchPTab('info')">Мэдээлэл</button>
+      <button class="pt" onclick="switchPTab('ads')">Миний зарууд</button>
+      <button class="pt" onclick="switchPTab('edit')">Засах</button>
+    </div>
+    <div class="profile-section active" id="ptab-info" style="display:block"></div>
+    <div class="profile-section" id="ptab-ads"></div>
+    <div class="profile-section" id="ptab-edit"></div>
+  </div>
+</div>
+
+<!-- ─── AUTH MODAL ─── -->
+<div class="modal-overlay" id="authModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="authTitle">Нэвтрэх</h2>
+      <button class="modal-close" onclick="closeModal('authModal')"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-tabs">
+        <button class="m-tab active" id="loginTab" onclick="switchAuth('login')">Нэвтрэх</button>
+        <button class="m-tab" id="regTab" onclick="switchAuth('register')">Бүртгүүлэх</button>
+      </div>
+
+      <!-- Login form -->
+      <div id="loginForm">
+        <div class="form-row"><label>Имэйл</label><input type="email" id="loginEmail" placeholder="mail@example.com"></div>
+        <div class="form-row"><label>Нууц үг</label><input type="password" id="loginPass" placeholder="••••••••"></div>
+        <div class="form-err" id="loginErr"></div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:6px" onclick="doLogin()">Нэвтрэх</button>
+        <div class="divider" style="margin-top:14px">Туршилтын бүртгэл</div>
+        <div style="font-size:12px;color:var(--faint);text-align:center">bat@example.com / password123</div>
+      </div>
+
+      <!-- Register form -->
+      <div id="registerForm" style="display:none">
+        <div class="form-row"><label>Нэр</label><input type="text" id="regName" placeholder="Таны нэр"></div>
+        <div class="form-row"><label>Имэйл</label><input type="email" id="regEmail" placeholder="mail@example.com"></div>
+        <div class="form-row"><label>Утас</label><input type="tel" id="regPhone" placeholder="99XXXXXX"></div>
+        <div class="form-row"><label>Нууц үг</label><input type="password" id="regPass" placeholder="Хамгийн багадаа 8 тэмдэгт"></div>
+        <div class="form-err" id="regErr"></div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:6px" onclick="doRegister()">Бүртгүүлэх</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── POST MODAL ─── -->
+<div class="modal-overlay" id="postModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h2>Зар оруулах</h2>
+      <button class="modal-close" onclick="closeModal('postModal')"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="step-indicator">
+        <div class="step done" id="step1"></div>
+        <div class="step" id="step2"></div>
+        <div class="step" id="step3"></div>
+      </div>
+
+      <!-- Step 1: Category -->
+      <div id="postStep1">
+        <div class="form-row"><label>Ангилал сонгоно уу</label>
+          <select class="filter-sel" id="postCat" style="width:100%" onchange="onPostCatChange()">
+            <option value="">— Ангилал —</option>
+            <option value="mashin">CAR</option>
+            <option value="BIKE">BIKE</option>
+            <option value="scooter">SCOOTER</option>
+            <option value="tsahilgaan_bike">ELECTRIC BIKE</option>
+            <option value="moped">MOPED</option>
+          </select>
+        </div>
+        <div class="form-row"><label>BRAND</label>
+          <select class="filter-sel" id="postBrand" style="width:100%" onchange="onPostBrandChange()"><option value="">— Эхлээд ангилал сонгоно уу —</option></select>
+        </div>
+        <div class="form-row"><label>MODEL</label>
+          <select class="filter-sel" id="postModel" style="width:100%"><option value="">CHOOSE BRAND</option></select>
+        </div>
+        <button class="btn btn-primary" onclick="goPostStep(2)">Үргэлжлүүлэх →</button>
+      </div>
+
+      <!-- Step 2: Details -->
+      <div id="postStep2" style="display:none">
+        <div class="form-row-2">
+          <div class="form-row" style="margin:0"><label>Он</label><input type="number" id="postYear" placeholder="2020" min="1990" max="2025"></div>
+          <div class="form-row" style="margin:0"><label>Км гүйлт</label><input type="number" id="postKm" placeholder="50000"></div>
+        </div>
+        <div style="height:12px"></div>
+        <div class="form-row-2">
+          <div class="form-row" style="margin:0"><label>Түлш</label>
+            <select class="filter-sel" id="postFuel" style="width:100%">
+              <option>Бензин</option><option>Дизель</option><option>Гибрид</option><option>Цахилгаан</option><option>-</option>
+            </select>
+          </div>
+          <div class="form-row" style="margin:0"><label>Байдал</label>
+            <select class="filter-sel" id="postCond" style="width:100%">
+              <option>Шинэ</option><option>Маш сайн</option><option>Сайн</option><option>Дунд</option>
+            </select>
+          </div>
+        </div>
+        <div style="height:12px"></div>
+        <div class="form-row-2">
+          <div class="form-row" style="margin:0"><label>Өнгө (монгол)</label><input type="text" id="postColorMn" placeholder="улаан, хар..."></div>
+          <div class="form-row" style="margin:0"><label>Өнгө (latin)</label><input type="text" id="postColor" placeholder="ulaan, har..."></div>
+        </div>
+        <div style="height:12px"></div>
+        <div class="form-row"><label>Үнэ (₮)</label><input type="number" id="postPrice" placeholder="45000000"></div>
+        <div style="display:flex;gap:10px;margin-top:4px">
+          <button class="btn btn-ghost" onclick="goPostStep(1)">← Буцах</button>
+          <button class="btn btn-primary" onclick="goPostStep(3)">Үргэлжлүүлэх →</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Description + img -->
+      <div id="postStep3" style="display:none">
+        <div class="form-row"><label>Нэр гарчиг</label><input type="text" id="postTitle" placeholder="Жишээ: Toyota RAV4 2019 улаан"></div>
+        <div class="form-row"><label>Зурагны URL (Unsplash/Google)</label><input type="text" id="postImg" placeholder="https://..."></div>
+        <div class="form-row"><label>Дэлгэрэнгүй тайлбар</label><textarea id="postDesc" placeholder="Машиныхаа талаар дэлгэрэнгүй бичнэ үү..."></textarea></div>
+        <div class="form-err" id="postErr"></div>
+        <div style="display:flex;gap:10px;margin-top:4px">
+          <button class="btn btn-ghost" onclick="goPostStep(2)">← Буцах</button>
+          <button class="btn btn-primary" onclick="submitPost()"><i class="fa-solid fa-check"></i> Зар байршуулах</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── AI CHAT FAB ─── -->
+<div class="fab-wrap">
+  <div class="chat-win" id="chatWin">
+    <div class="chat-hd">
+      <div class="chat-hd-l">
+        <div class="chat-av"><i class="fa-solid fa-robot"></i></div>
+        <div>
+          <div class="chat-nm">AI Туслах</div>
+          <div class="chat-st"><span class="chat-dot"></span> Онлайн · Claude</div>
+        </div>
+      </div>
+      <button class="chat-x" onclick="toggleChat()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="chat-msgs" id="chatMsgs">
+      <div class="msg-w"><div class="msg bot">Сайн байна уу! 👋 Хайж буй унаагаа дурын байдлаар бичнэ үү.<br><br>Жишээ: <em>"30 саяас доош BMW"</em>, <em>"ulaan Toyota"</em>, <em>"tsahilgaan scooter"</em> 🚗</div></div>
+    </div>
+    <form class="chat-frm" onsubmit="sendChat(event)">
+      <input type="text" id="chatInput" placeholder="Хайлтаа бичнэ үү...">
+      <button type="submit" class="chat-send" id="chatSend"><i class="fa-solid fa-paper-plane"></i></button>
+    </form>
+  </div>
+  <button class="fab-btn" onclick="toggleChat()">
+    <div class="fab-ping"></div>
+    <i class="fa-solid fa-wand-magic-sparkles"></i> AISearch
+  </button>
+</div>
+
+<script>
+// ─────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────
+let vehicles=[], selectedCat='all', searchQ='', aiIds=null, chatHist=[], aiLoading=false;
+let currentUser=null, token=localStorage.getItem('ahToken')||null;
+
+const CATS=[
+  {id:'all',name:'Бүгд',icon:'fa-list'},
+  {id:'mashin',name:'Машин',icon:'fa-car'},
+  {id:'undag_dugui',name:'Ундаг дугуй',icon:'fa-bicycle'},
+  {id:'scooter',name:'Скутер',icon:'fa-motorcycle'},
+  {id:'tsahilgaan_bike',name:'Цахилгаан Bike',icon:'fa-bolt'},
+  {id:'moped',name:'Мопед',icon:'fa-motorcycle'},
+];
+const CMAP={'Шинэ':'cn','Маш сайн':'cg','Сайн':'cg','Дунд':'cm'};
+
+// ─────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────
+window.onload=async()=>{
+  renderCats();
+  await loadVehicles();
+  if(token) await restoreUser();
+};
+
+// ─────────────────────────────────────────────
+// PAGE ROUTING
+// ─────────────────────────────────────────────
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  window.scrollTo(0,0);
+  if(id==='profile') renderProfile();
+}
+
+// ─────────────────────────────────────────────
+// VEHICLES
+// ─────────────────────────────────────────────
+async function loadVehicles(params={}){
+  document.getElementById('mainGrid').innerHTML=`<div class="spin-wrap"><div class="spinner"></div></div>`;
+  const qs=new URLSearchParams(params).toString();
+  try{
+    const r=await fetch('/api/vehicles?'+qs);
+    const d=await r.json();
+    vehicles=d.data||[];
+    document.getElementById('totalCount').textContent=vehicles.length;
+    renderGrid();
+  }catch{document.getElementById('mainGrid').innerHTML='<p style="padding:40px;color:var(--faint);grid-column:1/-1">Серверт холбогдоход алдаа гарлаа.</p>';}
+}
+
+function renderGrid(){
+  let list=[...vehicles];
+  if(aiIds!==null) list=list.filter(v=>aiIds.includes(v.id));
+  if(selectedCat!=='all') list=list.filter(v=>v.category===selectedCat);
+  if(searchQ){const q=searchQ.toLowerCase();list=list.filter(v=>v.title.toLowerCase().includes(q)||v.brand.toLowerCase().includes(q)||(v.colorMn&&v.colorMn.includes(q)));}
+  const grid=document.getElementById('mainGrid');
+  const nr=document.getElementById('noRes');
+  if(!list.length){grid.innerHTML='';nr.style.display='block';return;}
+  nr.style.display='none';
+  grid.innerHTML=list.map(v=>{
+    const cc=CMAP[v.condition]||'cm';
+    const ai=aiIds&&aiIds.includes(v.id)?'ai-match':'';
+    return`<div class="card ${ai}" onclick="openDetail(${v.id})">
+      <div class="card-img">
+        <img src="${v.img}" alt="${v.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=600'">
+        <span class="card-cat">${v.brand}</span>
+        <span class="card-cond ${cc}">${v.condition}</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">${v.title}</div>
+        <div class="card-chips">
+          <span class="chip"><i class="fa-solid fa-calendar"></i>${v.year}</span>
+          ${v.km>0?`<span class="chip"><i class="fa-solid fa-road"></i>${v.km.toLocaleString()}км</span>`:''}
+          <span class="chip"><i class="fa-solid fa-droplet"></i>${v.fuel}</span>
+          ${v.colorMn?`<span class="chip"><i class="fa-solid fa-circle" style="color:${colorHex(v.color)}"></i>${v.colorMn}`:''}
+        </div>
+        <div class="card-foot">
+          <div class="card-price">${v.price.toLocaleString()}₮</div>
+          <button class="btn-sm">Үзэх →</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function colorHex(c){const m={ulaan:'#ef4444',har:'#1e293b',tsagaan:'#f8fafc',tsenher:'#3b82f6',mungun:'#94a3b8'};return m[c]||'var(--c-sky)';}
+
+// ─────────────────────────────────────────────
+// DETAIL
+// ─────────────────────────────────────────────
+async function openDetail(id){
+  const r=await fetch('/api/vehicles/'+id);
+  const d=await r.json();
+  if(!d.success)return;
+  const v=d.data;const s=v.seller||{};
+  const initials=s.name?s.name.split(' ').map(n=>n[0]).join('').slice(0,2):'?';
+  document.getElementById('detailContent').innerHTML=`
+    <div>
+      <div class="detail-imgs"><img src="${v.img}" alt="${v.title}" onerror="this.src='https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=800'"></div>
+    </div>
+    <div class="detail-info">
+      <div>
+        <div class="detail-title">${v.title}</div>
+        <div class="detail-price">${v.price.toLocaleString()} ₮</div>
+      </div>
+      <div class="detail-chips">
+        <span class="detail-chip"><i class="fa-solid fa-calendar"></i>${v.year} он</span>
+        ${v.km>0?`<span class="detail-chip"><i class="fa-solid fa-road"></i>${v.km.toLocaleString()} км</span>`:''}
+        <span class="detail-chip"><i class="fa-solid fa-droplet"></i>${v.fuel}</span>
+        ${v.colorMn?`<span class="detail-chip"><i class="fa-solid fa-palette"></i>${v.colorMn}</span>`:''}
+        <span class="detail-chip"><i class="fa-solid fa-star"></i>${v.condition}</span>
+        <span class="detail-chip"><i class="fa-solid fa-tag"></i>${v.category.replace('_',' ')}</span>
+      </div>
+      ${v.description?`<div class="detail-desc">${v.description}</div>`:''}
+      <div class="seller-card">
+        <h3><i class="fa-solid fa-user"></i> Худалдагчийн мэдээлэл</h3>
+        <div class="seller-profile">
+          <div class="seller-avatar">${initials}</div>
+          <div>
+            <div class="seller-name">${s.name||'—'}</div>
+            <div class="seller-since">Бүртгүүлсэн: ${s.joinedAt||'—'}</div>
+          </div>
+        </div>
+        <div class="seller-info-row">
+          ${s.phone?`<div class="seller-info-item"><i class="fa-solid fa-phone"></i><span>${s.phone}</span></div>`:''}
+          ${s.address?`<div class="seller-info-item"><i class="fa-solid fa-location-dot"></i><span>${s.address}</span></div>`:''}
+          ${s.facebook?`<div class="seller-info-item"><i class="fa-brands fa-facebook"></i><a href="https://${s.facebook}" target="_blank">${s.facebook}</a></div>`:''}
+        </div>
+        ${s.bio?`<div class="seller-bio"><span>Тухай</span>${s.bio}</div>`:''}
+        <div class="contact-btns">
+          ${s.phone?`<button class="btn btn-primary" onclick="window.location='tel:${s.phone}'"><i class="fa-solid fa-phone"></i> ${s.phone} дугаарт залгах</button>`:''}
+          <button class="btn btn-outline"><i class="fa-solid fa-envelope"></i> Мессеж илгээх</button>
+        </div>
+      </div>
+    </div>`;
+  showPage('detail');
+}
+
+// ─────────────────────────────────────────────
+// CATEGORIES & FILTERS
+// ─────────────────────────────────────────────
+function renderCats(){
+  document.getElementById('catTabs').innerHTML=CATS.map(c=>`
+    <button class="cat-tab ${selectedCat===c.id?'active':''}" onclick="selectCat('${c.id}')">
+      <i class="fa-solid ${c.icon}"></i>${c.name}
+    </button>`).join('');
+}
+
+async function selectCat(id){
+  selectedCat=id;
+  renderCats();
+  await loadBrands(id);
+  document.getElementById('modelSel').innerHTML='<option value="">Бүх загвар</option>';
+  renderGrid();
+}
+
+async function loadBrands(cat){
+  const sel=document.getElementById('brandSel');
+  sel.innerHTML='<option value="">Бүх брэнд</option>';
+  if(cat==='all')return;
+  try{
+    const r=await fetch('/api/brands/'+cat);
+    const d=await r.json();
+    if(d.success) d.brands.forEach(b=>sel.innerHTML+=`<option value="${b}">${b}</option>`);
+  }catch{}
+}
+
+async function onBrandChange(){
+  const brand=document.getElementById('brandSel').value;
+  const mSel=document.getElementById('modelSel');
+  mSel.innerHTML='<option value="">Бүх загвар</option>';
+  if(!brand||selectedCat==='all')return;
+  try{
+    const r=await fetch(`/api/models/${selectedCat}/${encodeURIComponent(brand)}`);
+    const d=await r.json();
+    if(d.success) d.models.forEach(m=>mSel.innerHTML+=`<option value="${m}">${m}</option>`);
+  }catch{}
+}
+
+function applyFilters(){
+  const params={};
+  if(selectedCat!=='all') params.category=selectedCat;
+  const brand=document.getElementById('brandSel').value;
+  const model=document.getElementById('modelSel').value;
+  const minP=document.getElementById('minPrice').value;
+  const maxP=document.getElementById('maxPrice').value;
+  const minY=document.getElementById('minYear').value;
+  const maxY=document.getElementById('maxYear').value;
+  if(brand) params.brand=brand;
+  if(model) params.model=model;
+  if(minP) params.minPrice=minP;
+  if(maxP) params.maxPrice=maxP;
+  if(minY) params.minYear=minY;
+  if(maxY) params.maxYear=maxY;
+  aiIds=null;
+  document.getElementById('aiBanner').classList.remove('show');
+  loadVehicles(params);
+}
+
+function handleSearch(){
+  searchQ=document.getElementById('mainSearch').value||document.getElementById('mobileSearch').value;
+  renderGrid();
+}
+function resetAll(){
+  selectedCat='all';searchQ='';aiIds=null;
+  ['mainSearch','mobileSearch','minPrice','maxPrice','minYear','maxYear'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});
+  document.getElementById('brandSel').innerHTML='<option value="">Бүх брэнд</option>';
+  document.getElementById('modelSel').innerHTML='<option value="">Бүх загвар</option>';
+  document.getElementById('aiBanner').classList.remove('show');
+  renderCats();loadVehicles();
+}
+function clearAi(){aiIds=null;document.getElementById('aiBanner').classList.remove('show');renderGrid();}
+
+// ─────────────────────────────────────────────
+// AUTH
+// ─────────────────────────────────────────────
+function openAuth(tab){
+  openModal('authModal');switchAuth(tab||'login');
+}
+function switchAuth(tab){
+  document.getElementById('loginForm').style.display=tab==='login'?'block':'none';
+  document.getElementById('registerForm').style.display=tab==='register'?'block':'none';
+  document.getElementById('loginTab').className='m-tab'+(tab==='login'?' active':'');
+  document.getElementById('regTab').className='m-tab'+(tab==='register'?' active':'');
+  document.getElementById('authTitle').textContent=tab==='login'?'Нэвтрэх':'Бүртгүүлэх';
+}
+async function doLogin(){
+  const email=document.getElementById('loginEmail').value;
+  const pass=document.getElementById('loginPass').value;
+  document.getElementById('loginErr').textContent='';
+  try{
+    const r=await fetch('/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password:pass})});
+    const d=await r.json();
+    if(!d.success){document.getElementById('loginErr').textContent=d.message;return;}
+    token=d.token;currentUser=d.user;
+    localStorage.setItem('ahToken',token);
+    updateNavAuth();closeModal('authModal');
+  }catch{document.getElementById('loginErr').textContent='Холболтын алдаа';}
+}
+async function doRegister(){
+  const name=document.getElementById('regName').value;
+  const email=document.getElementById('regEmail').value;
+  const phone=document.getElementById('regPhone').value;
+  const pass=document.getElementById('regPass').value;
+  document.getElementById('regErr').textContent='';
+  try{
+    const r=await fetch('/api/auth/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email,phone,password:pass})});
+    const d=await r.json();
+    if(!d.success){document.getElementById('regErr').textContent=d.message;return;}
+    token=d.token;currentUser=d.user;
+    localStorage.setItem('ahToken',token);
+    updateNavAuth();closeModal('authModal');
+  }catch{document.getElementById('regErr').textContent='Холболтын алдаа';}
+}
+async function restoreUser(){
+  try{
+    const r=await fetch('/api/auth/me',{headers:{Authorization:'Bearer '+token}});
+    const d=await r.json();
+    if(d.success){currentUser=d.user;updateNavAuth();}
+    else{token=null;localStorage.removeItem('ahToken');}
+  }catch{token=null;localStorage.removeItem('ahToken');}
+}
+function updateNavAuth(){
+  document.getElementById('loginNavBtn').style.display=currentUser?'none':'flex';
+  const ab=document.getElementById('avatarBtn');
+  if(currentUser){
+    ab.style.display='flex';
+    ab.textContent=currentUser.name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
+  }else{ab.style.display='none';}
+}
+function logout(){token=null;currentUser=null;localStorage.removeItem('ahToken');updateNavAuth();showPage('home');}
+
+// ─────────────────────────────────────────────
+// PROFILE PAGE
+// ─────────────────────────────────────────────
+function renderProfile(){
+  if(!currentUser){showPage('home');openAuth('login');return;}
+  const u=currentUser;
+  const init=u.name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
+  document.getElementById('profileHeader').innerHTML=`
+    <div class="profile-avatar">${init}</div>
+    <div>
+      <div class="profile-name">${u.name}</div>
+      <div class="profile-email">${u.email}</div>
+      <div class="profile-stats">
+        <div class="ps"><div class="pn" id="myAdCount">—</div><div class="pl">Зарласан</div></div>
+        <div class="ps"><div class="pn">${u.joinedAt}</div><div class="pl">Бүртгүүлсэн</div></div>
+      </div>
+    </div>
+    <button class="btn btn-ghost" style="margin-left:auto;align-self:flex-start" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Гарах</button>`;
+
+  // Info tab
+  document.getElementById('ptab-info').innerHTML=`
+    <div style="background:#fff;border-radius:var(--r-lg);border:1.5px solid var(--border);padding:24px;box-shadow:var(--shadow)">
+      <h3 style="font-size:15px;font-weight:700;margin-bottom:18px;color:var(--text)">Хувийн мэдээлэл</h3>
+      <div class="info-grid">
+        ${infoItem('fa-user','Нэр',u.name)}
+        ${infoItem('fa-envelope','Имэйл',u.email)}
+        ${infoItem('fa-phone','Утас',u.phone||'—')}
+        ${infoItem('fa-location-dot','Хаяг',u.address||'—')}
+        ${infoItem('fa-brands fa-facebook','Facebook',u.facebook||'—')}
+      </div>
+      ${u.bio?`<div style="margin-top:16px"><div style="font-size:11px;font-weight:700;color:var(--faint);text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px">Тухай</div><div style="background:var(--bg);border-radius:10px;padding:12px;font-size:13.5px;color:var(--muted);line-height:1.65">${u.bio}</div></div>`:''}
+    </div>`;
+
+  // Load my ads
+  loadMyAds();
+
+  // Edit tab
+  document.getElementById('ptab-edit').innerHTML=`
+    <div style="background:#fff;border-radius:var(--r-lg);border:1.5px solid var(--border);padding:24px;box-shadow:var(--shadow)">
+      <h3 style="font-size:15px;font-weight:700;margin-bottom:18px">Мэдээлэл засах</h3>
+      <div class="form-row"><label>Нэр</label><input type="text" id="editName" value="${u.name}"></div>
+      <div class="form-row"><label>Утас</label><input type="text" id="editPhone" value="${u.phone||''}"></div>
+      <div class="form-row"><label>Хаяг</label><input type="text" id="editAddress" value="${u.address||''}"></div>
+      <div class="form-row"><label>Facebook холбоос</label><input type="text" id="editFb" value="${u.facebook||''}" placeholder="facebook.com/tanaineg"></div>
+      <div class="form-row"><label>Тухай (bio)</label><textarea id="editBio">${u.bio||''}</textarea></div>
+      <div class="form-err" id="editErr"></div>
+      <button class="btn btn-primary" onclick="saveProfile()"><i class="fa-solid fa-check"></i> Хадгалах</button>
+    </div>`;
+}
+
+function infoItem(icon,label,val){
+  return`<div style="display:flex;flex-direction:column;gap:4px">
+    <div style="font-size:11px;font-weight:600;color:var(--faint);text-transform:uppercase;letter-spacing:.4px">${label}</div>
+    <div style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text);font-weight:500">
+      <i class="fa-solid ${icon}" style="color:var(--c-sky);font-size:13px;width:16px"></i>${val}
+    </div>
+  </div>`;
+}
+
+async function loadMyAds(){
+  if(!currentUser)return;
+  try{
+    const r=await fetch('/api/vehicles?sellerId='+currentUser.id);
+    const d=await r.json();
+    const ads=d.data||[];
+    document.getElementById('myAdCount').textContent=ads.length;
+    document.getElementById('ptab-ads').innerHTML=ads.length===0?
+      `<div style="text-align:center;padding:60px;background:#fff;border-radius:var(--r-xl);border:2px dashed var(--border)"><i class="fa-solid fa-car" style="font-size:40px;color:var(--c-blue-lt);margin-bottom:12px;display:block"></i><p style="color:var(--faint)">Одоогоор зар байхгүй байна</p></div>`:
+      `<div class="grid">${ads.map(v=>`<div class="card" onclick="openDetail(${v.id})">
+        <div class="card-img"><img src="${v.img}" alt="${v.title}" loading="lazy">
+          <span class="card-cat">${v.brand}</span>
+          <span class="card-cond ${CMAP[v.condition]||'cm'}">${v.condition}</span>
+        </div>
+        <div class="card-body">
+          <div class="card-title">${v.title}</div>
+          <div class="card-chips">
+            <span class="chip"><i class="fa-solid fa-calendar"></i>${v.year}</span>
+            ${v.km>0?`<span class="chip"><i class="fa-solid fa-road"></i>${v.km.toLocaleString()}км</span>`:''}
+          </div>
+          <div class="card-foot">
+            <div class="card-price">${v.price.toLocaleString()}₮</div>
+            <button class="btn-sm" onclick="event.stopPropagation();deleteAd(${v.id},this)" style="background:#fee2e2;color:#dc2626;border-color:#fecaca"><i class="fa-solid fa-trash"></i></button>
+          </div>
+        </div>
+      </div>`).join('')}</div>`;
+  }catch{}
+}
+
+async function deleteAd(id,btn){
+  if(!confirm('Энэ зарыг устгах уу?'))return;
+  try{
+    await fetch('/api/vehicles/'+id,{method:'DELETE',headers:{Authorization:'Bearer '+token}});
+    btn.closest('.card').remove();
+  }catch{}
+}
+
+async function saveProfile(){
+  const body={name:document.getElementById('editName').value,phone:document.getElementById('editPhone').value,address:document.getElementById('editAddress').value,facebook:document.getElementById('editFb').value,bio:document.getElementById('editBio').value};
+  try{
+    const r=await fetch('/api/auth/profile',{method:'PUT',headers:{'Content-Type':'application/json',Authorization:'Bearer '+token},body:JSON.stringify(body)});
+    const d=await r.json();
+    if(d.success){currentUser=d.user;renderProfile();switchPTab('info');alert('Мэдээлэл амжилттай хадгаллаа ✓');}
+    else document.getElementById('editErr').textContent=d.message;
+  }catch{document.getElementById('editErr').textContent='Алдаа гарлаа';}
+}
+
+function switchPTab(tab){
+  document.querySelectorAll('.pt').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.profile-section').forEach(s=>{s.classList.remove('active');s.style.display='none';});
+  event.target.classList.add('active');
+  const s=document.getElementById('ptab-'+tab);s.classList.add('active');s.style.display='block';
+}
+
+// ─────────────────────────────────────────────
+// POST MODAL
+// ─────────────────────────────────────────────
+let curStep=1;
+function openPostModal(){
+  if(!currentUser){openAuth('login');return;}
+  curStep=1;goPostStep(1);openModal('postModal');
+}
+function goPostStep(n){
+  [1,2,3].forEach(i=>{
+    document.getElementById('postStep'+i).style.display=i===n?'block':'none';
+    document.getElementById('step'+i).classList.toggle('done',i<=n);
+  });
+  curStep=n;
+}
+async function onPostCatChange(){
+  const cat=document.getElementById('postCat').value;
+  const bSel=document.getElementById('postBrand');
+  bSel.innerHTML='<option value="">— Брэнд сонгоно уу —</option>';
+  document.getElementById('postModel').innerHTML='<option value="">— Брэнд сонгоно уу —</option>';
+  if(!cat)return;
+  try{
+    const r=await fetch('/api/brands/'+cat);
+    const d=await r.json();
+    if(d.success) d.brands.forEach(b=>bSel.innerHTML+=`<option value="${b}">${b}</option>`);
+  }catch{}
+}
+async function onPostBrandChange(){
+  const cat=document.getElementById('postCat').value;
+  const brand=document.getElementById('postBrand').value;
+  const mSel=document.getElementById('postModel');
+  mSel.innerHTML='<option value="">— Загвар сонгоно уу —</option>';
+  if(!cat||!brand)return;
+  try{
+    const r=await fetch(`/api/models/${cat}/${encodeURIComponent(brand)}`);
+    const d=await r.json();
+    if(d.success) d.models.forEach(m=>mSel.innerHTML+=`<option value="${m}">${m}</option>`);
+  }catch{}
+}
+async function submitPost(){
+  const body={
+    title:document.getElementById('postTitle').value,
+    category:document.getElementById('postCat').value,
+    brand:document.getElementById('postBrand').value,
+    model:document.getElementById('postModel').value,
+    color:document.getElementById('postColor').value,
+    colorMn:document.getElementById('postColorMn').value,
+    price:document.getElementById('postPrice').value,
+    year:document.getElementById('postYear').value,
+    km:document.getElementById('postKm').value,
+    fuel:document.getElementById('postFuel').value,
+    condition:document.getElementById('postCond').value,
+    description:document.getElementById('postDesc').value,
+    img:document.getElementById('postImg').value,
+  };
+  if(!body.title||!body.category||!body.brand||!body.price){document.getElementById('postErr').textContent='Шаардлагатай талбарыг бөглөнө үү';return;}
+  try{
+    const r=await fetch('/api/vehicles',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+token},body:JSON.stringify(body)});
+    const d=await r.json();
+    if(d.success){closeModal('postModal');await loadVehicles();alert('Зар амжилттай байршлаа! ✓');}
+    else document.getElementById('postErr').textContent=d.message;
+  }catch{document.getElementById('postErr').textContent='Алдаа гарлаа';}
+}
+
+// ─────────────────────────────────────────────
+// AI CHAT
+// ─────────────────────────────────────────────
+function toggleChat(){const w=document.getElementById('chatWin');w.classList.toggle('open');if(w.classList.contains('open'))document.getElementById('chatInput').focus();}
+
+function addMsg(txt,role){
+  const c=document.getElementById('chatMsgs');
+  const w=document.createElement('div');w.className='msg-w'+(role==='user'?' u':'');
+  w.innerHTML=`<div class="msg ${role==='user'?'usr':'bot'}">${txt}</div>`;
+  c.appendChild(w);c.scrollTop=9999;
+}
+function showTyping(){const c=document.getElementById('chatMsgs');const el=document.createElement('div');el.id='typing';el.className='typing';el.innerHTML='<div class="td"></div><div class="td"></div><div class="td"></div>';c.appendChild(el);c.scrollTop=9999;}
+function hideTyping(){const el=document.getElementById('typing');if(el)el.remove();}
+
+async function sendChat(e){
+  e.preventDefault();
+  if(aiLoading)return;
+  const inp=document.getElementById('chatInput');
+  const txt=inp.value.trim();if(!txt)return;
+  addMsg(txt,'user');
+  chatHist.push({role:'user',content:txt});
+  inp.value='';aiLoading=true;
+  document.getElementById('chatSend').disabled=true;
+  showTyping();
+  try{
+    const r=await fetch('/api/ai-search',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:txt,history:chatHist.slice(-8)})});
+    const d=await r.json();hideTyping();
+    if(!d.success){addMsg('⚠️ '+d.message,'bot');return;}
+    chatHist.push({role:'assistant',content:d.reply});
+    const c=document.getElementById('chatMsgs');
+    const w=document.createElement('div');w.className='msg-w';
+    w.innerHTML=`<div class="msg bot">${d.reply}</div>`;
+    if(d.matchedIds&&d.matchedIds.length>0){
+      const cnt=document.createElement('div');cnt.className='chat-cnt';
+      cnt.innerHTML=`<i class="fa-solid fa-car"></i>${d.matchedIds.length} зар харуулав`;
+      w.appendChild(cnt);
+      aiIds=d.matchedIds;
+      document.getElementById('aiBannerTxt').innerHTML=`AI: <strong>${d.matchedIds.length} тээврийн хэрэгсэл</strong> илрүүллээ`;
+      document.getElementById('aiBanner').classList.add('show');
+      renderGrid();showPage('home');
+    }
+    c.appendChild(w);c.scrollTop=9999;
+  }catch{hideTyping();addMsg('⚠️ Серверт холбогдоход алдаа гарлаа.','bot');}
+  finally{aiLoading=false;document.getElementById('chatSend').disabled=false;}
+}
+
+// ─────────────────────────────────────────────
+// MODAL HELPERS
+// ─────────────────────────────────────────────
+function openModal(id){document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
+</script>
+</body>
+</html>
