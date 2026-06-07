@@ -12,7 +12,9 @@ const JWT_SECRET = process.env.JWT_SECRET || 'autohub_secret_2024';
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'index.html')));
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
